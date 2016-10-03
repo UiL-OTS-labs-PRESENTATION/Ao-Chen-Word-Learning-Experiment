@@ -77,17 +77,6 @@ picture {
 	y = 0;
 	} pic1; #define pic1
 
-/*array{
-	text {caption = "Attention Grabber 1 playing!!"; }text_ag1;
-	text {caption = "Attention Grabber 2 playing!!"; }text_ag2;
-	text {caption = "Attention Grabber 3 playing!!"; }text_ag3;
-	text {caption = "Attention Grabber 4 playing!!"; }text_ag4;
-	text {caption = "Attention Grabber 5 playing!!"; }text_ag5;
-	text {caption = "Attention Grabber 6 playing!!"; }text_ag6;
-}textcaption;
-*/
-
-
 text {caption = "PAUZE"; }pauze_txt;
 text {caption = "EINDE       BEDANKT!"; }einde_txt;
 
@@ -126,24 +115,7 @@ trial {
 	port_code = 100;
 	code = "attentiongrabber";
 	}attention_event;
-}feedback_trial;
-
-
-/*trial {
-   trial_type = first_response;
-   trial_duration = forever;
-  	stimulus_event {
-	picture {text text_ag1; x = 0; y = 0;  } feedback_txt;
-	time = 0;
-	target_button = 1; 
-	response_active = true;
-	code = "attentiongrabber"; 
-#	port_code = 99;
-	}feedback_pic;
-}feedback_trial;
-*/
-
-
+}attentiongrabber_trial;
 	
 trial { 
 	trial_duration = 2200;
@@ -288,8 +260,7 @@ int cnt=1; # so you know which attention grabber to play, starting with the firs
 
 movies[cnt].prepare ();
 attention_event.set_stimulus (movies[cnt]);
-#feedback_txt.set_part (1, textcaption [cnt] );
-feedback_trial.present(); # we start with an attention grabber
+attentiongrabber_trial.present(); # we start with an attention grabber
 movies[cnt].release();
 
 ##############################
@@ -352,8 +323,7 @@ begin
 		
 		movies[cnt].prepare ();
 		attention_event.set_stimulus (movies[cnt]);
-		#feedback_txt.set_part (1, textcaption [cnt] );
-		feedback_trial.present();
+		attentiongrabber_trial.present();
 		movies[cnt].release ();
 	elseif (type == stimulus_miss) then #so with no key press it just continues to the next line
 		#Nothing here.
@@ -368,8 +338,7 @@ begin
 		pauze.present (); #"PAUZE!"
 		movies[cnt].prepare ();
 		attention_event.set_stimulus (movies[cnt]);
-		#feedback_txt.set_part (1, textcaption [cnt] );
-		feedback_trial.present();
+		attentiongrabber_trial.present();
 		movies[cnt].release ();
   end;
   
@@ -379,40 +348,3 @@ begin
 
   i_trial = i_trial + 1 ; 
 end;
-
- /* if (i_trial == 104) then
-		if cnt > 6 then cnt = 1
-		else cnt = cnt+1;
-		end;
-	pauze.present ();
-	movies[cnt].prepare ();
-	attention_event.set_stimulus (movies[cnt]);
-	#feedback_txt.set_part (1, textcaption [cnt] );
-	feedback_trial.present();
-	movies[cnt].release ();
-  end;
-  
-   if (i_trial == 156) then
-		if cnt > 6 then cnt = 1
-		else cnt = cnt+1;
-		end;
-	pauze.present ();
-	movies[cnt].prepare ();
-	attention_event.set_stimulus (movies[cnt]);
-	#feedback_txt.set_part (1, textcaption [cnt] );
-	feedback_trial.present();
-	movies[cnt].release ();
-  end;
-  
-  if (i_trial == 208) then
-		if cnt > 6 then cnt = 1
-		else cnt = cnt+1;
-		end;
-	pauze.present ();
-	movies[cnt].prepare ();
-	attention_event.set_stimulus (movies[cnt]);
-	#feedback_txt.set_part (1, textcaption [cnt] );
-	feedback_trial.present();
-	movies[cnt].release ();
-  end;
-*/
