@@ -77,21 +77,21 @@ picture {
 	bitmap { filename = ""; preload = false; } bit; #the bitmap is called bit, but will be overwritten
 	x = 0;
 	y = 0;
-	} pic1; #define pic1
+} pic1; #define pic1
 
-text {caption = "PAUZE"; }pauze_txt;
-text {caption = "EINDE       BEDANKT!"; }einde_txt;
+text {caption = "PAUZE"; } pauze_txt;
+text {caption = "EINDE       BEDANKT!"; } einde_txt;
 
 picture {
 	background_color = 82, 82, 82;
 	text pauze_txt; 
 	x = 0;
 	y = 0;  
-}pauze_pic; #pauze_pic
+} pauze_pic; #pauze_pic
 
 picture {
 	background_color = 82, 82, 82;
-}default; #default
+} default; #default
 
 picture {
 	background_color = 82, 82, 82;
