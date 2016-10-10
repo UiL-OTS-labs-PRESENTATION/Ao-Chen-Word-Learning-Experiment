@@ -45,6 +45,16 @@ begin
 	return true;
 end;
 
+sub
+	setup_movies
+begin
+	loop int index = 1 until index > MOVIE_LIST_FILENAMES.count() begin
+		video movie = new video;
+		movie.set_filename(MOVIE_DIR + MOVIE_LIST_FILENAMES[index]);
+		MOVIES.add(movie);
+		index = index+1;
+	end;
+end;
 
 #######
 # Displays text on the display section

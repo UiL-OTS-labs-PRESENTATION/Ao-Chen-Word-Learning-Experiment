@@ -9,7 +9,8 @@ array <string> IMAGE_FILES[0];
 array <string> SOUND_FILES[0];
 
 array <video> MOVIES[0];
-parameter_manager.get_videos("Movies", MOVIES);
+array <string> MOVIE_LIST_FILENAMES[0];
+parameter_manager.get_strings("Video Files", MOVIE_LIST_FILENAMES);
 
 string TRIAL_LIST_FILENAME = parameter_manager.get_string("Trial List");
 

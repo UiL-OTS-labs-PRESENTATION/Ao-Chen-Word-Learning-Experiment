@@ -9,6 +9,7 @@ open_stimulus_data_file();
 if(!all_sound_files_exist()) then exit("Not all sound files could be found! (See terminal for details)"); end;
 
 if(!all_movie_files_exist()) then exit("Not all video files could be found! (See terminal for details)"); end;
+setup_movies();
 
 if(!all_image_files_exist()) then exit("Not all image files could be found! (See terminal for details)"); end;
 
@@ -17,6 +18,8 @@ if (output_port_manager.port_count () == 0) then	###controls for whether you rea
 end;
 
 output_port oport = output_port_manager.get_port (1);
+
+
 
 ### Starting with an attention grabber####
 
@@ -53,8 +56,6 @@ begin
 	string f = SOUND_DIR + SOUND_FILES[i_trial]; #new variable 'f' where the wavfile (as string) is defined as (abc.wav)
 	s.set_filename (f); #reset; cf.  line 49 where s is defined, and line 189 where f is defined
 	s.load();
-
-	
 
 	picidentity.set_event_code (string (IDENTITY[i_trial]));
 	picidentity.set_port_code (IDENTITY[i_trial]);

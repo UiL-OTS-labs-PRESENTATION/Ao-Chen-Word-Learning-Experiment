@@ -100,10 +100,12 @@ picture {
 	y = 0;  
 }einde; #einde picture
 
+
 ################# DEFINE TRIALS
 trial {
 	trial_type = first_response;
 	trial_duration = stimuli_length; 
+	picture default;
 	stimulus_event {
 		nothing{};
 		time = 0;
