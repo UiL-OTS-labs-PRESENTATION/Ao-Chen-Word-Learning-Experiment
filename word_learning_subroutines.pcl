@@ -15,20 +15,28 @@ begin
 	return true;
 end;
 
+sub
+	bool blank_image(string filename)
+begin
+	return filename.count() == 0 || filename == "BLANK" || filename == "empty" || filename == "EMPTY" || filename == "blank"
+end;
+
 #######
 # Checks if all image files exist
 #######
 sub
 	bool all_image_files_exist
 begin
-	loop int index = 1 until index > SOUND_FILES.count() begin
-		if(!file_exists(stimulus_directory + IMAGE_DIR + IMAGE_FILES[index])) then
+	loop int index = 1 until index > IMAGE_FILES.count() begin
+		if(!blank_image(IMAGE_FILES[index]) && !file_exists(stimulus_directory + IMAGE_DIR + IMAGE_FILES[index])) then
 			term.print_line("Could not find the file: " + IMAGE_FILES[index]);
 		end;
 		index = index+1;
 	end;
 	return true;
 end;
+
+
 
 #######
 # Checks if all video files exist

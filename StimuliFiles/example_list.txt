@@ -4,4 +4,4 @@ bla bla bla
 21	111	1	figure3.png	kitty.wav
 21	111	1	figure1.png	kitty.wav
 21	111	1	BLANK	kitty.wav
-21	111	1	figure2.png	kitty.wav
+21	111	1	figure3.png	kitty.wav

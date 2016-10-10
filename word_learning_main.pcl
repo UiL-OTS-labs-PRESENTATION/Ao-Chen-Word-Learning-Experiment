@@ -43,7 +43,7 @@ begin
 
 	####resetting parameters for each trial###
 
-	if ( IMAGE_FILES[i_trial].count() == 0 || IMAGE_FILES[i_trial] == "BLANK") then
+	if ( blank_image(IMAGE_FILES[i_trial])) then
 		picevent.set_stimulus(default);
 		picevent.set_event_code("Empty");
 	else
