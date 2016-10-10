@@ -48,9 +48,11 @@ make sure that txt file does not end on a blank line, but with last number
 */
 
 ##############################################################################################3 
-scenario = "EWL_sep09.sce"; 
+scenario = "word_learning.sce";
+pcl_file = "word_learning_main.pcl";
+
 #no_logfile = true;
-scenario_type = trials; 
+scenario_type = trials;
 
 #write_codes = true; #		#WRITE CODES TO LOG/EEG PC
 write_codes = false;
@@ -59,10 +61,10 @@ pulse_width= 20;
 
 response_matching = simple_matching;
 
-active_buttons = 1;
-button_codes =1;
-default_font_size = 48;
-default_background_color = 82, 82, 82;
+active_buttons 				= 1;
+button_codes 					= 1;
+default_font_size 			= 48;
+default_background_color 	= 82, 82, 82;
 
 begin;
 ################ DEFINE OBJECTS 
@@ -97,23 +99,18 @@ picture {
 	x = 0;
 	y = 0;  
 }einde; #einde picture
-	
-array{
-	video { filename = "samplevideo.mp4"; } video1;
-}movies;
-
 
 ################# DEFINE TRIALS
 trial {
 	trial_type = first_response;
 	trial_duration = stimuli_length; 
 	stimulus_event {
-	nothing{};
-	time = 0;
-	target_button = 1; #enter
-	response_active = true; 
-	port_code = 100;
-	code = "attentiongrabber";
+		nothing{};
+		time = 0;
+		target_button = 1; #enter
+		response_active = true; 
+		port_code = 100;
+		code = "attentiongrabber";
 	}attention_event;
 }attentiongrabber_trial;
 	
@@ -125,29 +122,23 @@ trial {
 		stimulus_event{
 			picture pic1;        # Show picture ; pic1 will be overwritten in pcl
 				time = 0;
-				code = "onset picture"; #will be given name of jpg file
+				code = "onset picture"; #will be given name of image file
 				port_code = 53;
 		}picevent;					# The event of presenting picture is called 'picevent'
 			
 		stimulus_event{
 			nothing {};
 			deltat = 50; 
-			code = "21"; #overwritten in pcl
-			port_code = 21; #ibid
 		}picidentity;	#gives information to which part of the block and what kind of block the picture belongs to
 			
 		stimulus_event{
 			nothing {};
 			deltat = 50; 
-			code = "16"; #overwritten in pcl
-			port_code = 16; #ibid
 		}picnumber;	#gives information to which presentation in the training block [1-6] or match/mismatch or eyetracking it has
 				
 		stimulus_event{          # play target word                
 			sound snd;
 				time = 1000;
-				code = "onset wav file";
-				port_code = 13;
 		}wavevent;               # the event of presenting the wav file is called wavevent   
 
 		stimulus_event{
@@ -174,7 +165,7 @@ trial {
 			time = 0;
 			code = "isi: bloknummer"; 
 			port_code = 20; # overwritten in pcl
-		}background; # this stimulus event is called 'eventblok' 
+		}background;
 }isi;
 
 
@@ -201,150 +192,3 @@ trial {
 		port_code = 99;
 	};
 }play_einde;
-
-
-##############################################################
-
-begin_pcl;
-
-if (output_port_manager.port_count () == 0) then	###controls for whether you really have selected an output port
-term.print ("Forgot to add an output port!!!")
-end; 
-output_port oport = output_port_manager.get_port (1);
-
-loop until clock.time () >= 0 begin term.print(clock.time()); end;
-
-###################################################################
-###########GET INFO TXT FILE #######################################
-
-input_file in = new input_file;							# opens the txt file with the relevant data
-in.open( "example_list.txt"); ##Always check this
-in.set_delimiter( '\t' );
-
-
-# This is a hack to get the length of the list 
-int i_stmfile = 0;  # Counter for (text) stimulus file; i_stmfile is here created
-loop until
-   in.end_of_file() || i_stmfile == 1000 || !in.last_succeeded() #file is 260 regels lang
-begin
-   i_stmfile = i_stmfile + 1;   
-end;
-
-# Set up vectors of colums in txt file (eg .wav file names) using the length
-#strings before integers
-array <string> jpg[i_stmfile]; # you give each array a name
-array <string> wavfile[i_stmfile]; # you give each array a name
-array <int> identity[i_stmfile];
-array <int> number[i_stmfile];
-array <int> block[i_stmfile]; #you now only have arrays
-
-# Now you read in the actual filenames from each array per line
-i_stmfile = 0;  # Counter for (text) stimulus file
-loop until
-   in.end_of_file() || i_stmfile == 1000 || !in.last_succeeded()
-begin
-   i_stmfile = i_stmfile + 1;
-   jpg[i_stmfile] = in.get_string(); #because array is string
-	wavfile[i_stmfile] = in.get_string(); #because array is string
-	identity[i_stmfile] = in.get_int ();
-	number[i_stmfile] = in.get_int ();
-	block[i_stmfile] = in.get_int ();
-end;
-in.close();	# Close the file
-
-
-### Starting with an attention grabber####
-
-
-int cnt=1; # so you know which attention grabber to play, starting with the first 1
-
-movies[cnt].prepare ();
-attention_event.set_stimulus (movies[cnt]);
-attentiongrabber_trial.present(); # we start with an attention grabber
-movies[cnt].release();
-
-##############################
-### MAIN TRIAL DEFINITION####
-##############################
-
-loop
-   int i_trial = 1  #you create a new variable called 'i_trial' (1-240)
-until
-  i_trial > i_stmfile
-#i_trial > 26
-
-begin 
-
-	####resetting parameters for each trial###
-	string q = jpg[i_trial];
-	bit.set_filename (q);
-	bit.load();
-
-	string f = wavfile[i_trial]; #new variable 'f' where the wavfile (as string) is defined as (abc.wav)
-	s.set_filename (f); #reset; cf.  line 49 where s is defined, and line 189 where f is defined
-	s.load();
-
-	picevent.set_stimulus (pic1);
-	picevent.set_event_code (jpg[i_trial]); #changes log code into name of picture
-
-	picidentity.set_event_code (string (identity[i_trial]));
-	picidentity.set_port_code (identity[i_trial]);
-
-	picnumber.set_event_code (string (number[i_trial]));
-	picnumber.set_port_code (number[i_trial]);
-
-	wavevent.set_stimulus( snd );
-	wavevent.set_event_code (wavfile[i_trial]);
-
-	wavidentity.set_event_code (string (identity[i_trial]));
-	wavidentity.set_port_code (identity[i_trial]);
-
-	wavnumber.set_event_code (string (number[i_trial]));
-	wavnumber.set_port_code (number[i_trial]);
-
-	background.set_event_code (string (block[i_trial]));
-	background.set_port_code (block[i_trial]);
-	background.set_target_button (1);
-
-	trial1.present();
-
-	bit.unload();
-	s.unload(); #unload so that new wav file can be played 
-
-	isi.present ();
-
-	int type = stimulus_manager.last_stimulus_data().type();
-	if (type ==stimulus_hit) then
-		if cnt > 5 then 
-			cnt = 1
-		else 
-			cnt = cnt+1;
-		end;
-		
-		movies[cnt].prepare ();
-		attention_event.set_stimulus (movies[cnt]);
-		attentiongrabber_trial.present();
-		movies[cnt].release ();
-	elseif (type == stimulus_miss) then #so with no key press it just continues to the next line
-		#Nothing here.
-	end; #end of if-when to play an attention grabber
- 
-	if (i_trial == 48 || i_trial == 96 || i_trial == 144 || i_trial == 192) then
-		if cnt > 5 then 
-			cnt = 1
-		else 
-			cnt = cnt+1;
-		end;
-		pauze.present (); #"PAUZE!"
-		movies[cnt].prepare ();
-		attention_event.set_stimulus (movies[cnt]);
-		attentiongrabber_trial.present();
-		movies[cnt].release ();
-  end;
-  
-  if (i_trial == 240) then
-	play_einde.present ();
-  end;
-
-  i_trial = i_trial + 1 ; 
-end;

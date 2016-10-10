@@ -1,0 +1,143 @@
+# This PCL script contains all subroutines (aka functions)
+
+#######
+# Checks if all sound files exist
+#######
+sub
+	bool all_sound_files_exist
+begin
+	loop int index = 1 until index > SOUND_FILES.count() begin
+		if(!file_exists(stimulus_directory + SOUND_DIR + SOUND_FILES[index])) then
+			term.print_line("Could not find the file: " + SOUND_FILES[index]);
+		end;
+		index = index+1;
+	end;
+	return true;
+end;
+
+#######
+# Checks if all image files exist
+#######
+sub
+	bool all_image_files_exist
+begin
+	loop int index = 1 until index > SOUND_FILES.count() begin
+		if(!file_exists(stimulus_directory + IMAGE_DIR + IMAGE_FILES[index])) then
+			term.print_line("Could not find the file: " + IMAGE_FILES[index]);
+		end;
+		index = index+1;
+	end;
+	return true;
+end;
+
+#######
+# Checks if all video files exist
+#######
+sub
+	bool all_movie_files_exist
+begin
+	loop int index = 1 until index > MOVIES.count() begin
+		if(!file_exists(MOVIES[index].filename())) then
+			term.print_line("Could not find the file: " + MOVIES[index].filename());
+		end;
+		index = index+1;
+	end;
+	return true;
+end;
+
+
+#######
+# Displays text on the display section
+#######
+sub
+   display( string message , int wait)
+begin
+   display_window.erase();
+   display_window.draw_text( message );
+	wait_interval(wait);
+end;
+
+#######
+# Skips a line on the file
+#######
+sub
+	skip_header(input_file& file)
+begin
+	file.set_delimiter( '\n' );
+	file.get_line();
+	file.set_delimiter( '\t' );
+end;
+
+#######
+# Counts the number of lines in a file by opening it and transversing it until the last line
+#######
+sub
+	int get_number_of_lines_in_file(string filename)
+begin
+	int number_of_lines = 0;
+	input_file file = new input_file;
+	
+	file.set_delimiter( '\n' );
+	file.open(filename);
+	file.get_line(); # skipping header
+	loop until file.end_of_file() begin
+		file.get_line();
+		if (!file.last_succeeded()) then
+			file.close();
+			exit("file reading failed, some error on line" + string(number_of_lines+1)); # Plus one because of the header.
+		end;
+		number_of_lines = number_of_lines + 1;
+	end;
+	
+	file.close();
+	return number_of_lines;
+end;
+
+#######
+# Reads a line bit by bit and puts the parsed results into the correct arrays.
+#######
+sub
+	parse_full_line(input_file& file, int index)
+begin
+	BLOCK.add(file.get_int());
+	IDENTITY.add(file.get_int());
+	NUMBER.add(file.get_int());
+	IMAGE_FILES.add(file.get_string());
+	SOUND_FILES.add(file.get_string());
+end;
+
+#######
+# opens the stimulus file which is stored in STIMULUS_LIST_FILENAME
+#######
+sub
+	open_stimulus_data_file
+begin
+	string stimulus_file= stimulus_directory + TRIAL_LIST_FILENAME;
+
+	term.print_line("Opening: " + stimulus_file + " ...");
+
+	int number_of_trials = get_number_of_lines_in_file(stimulus_file);
+	
+	term.print_line("Detected " + string(number_of_trials) + " lines (excluding header)...");
+
+	input_file in = new input_file;
+	in.set_delimiter( '\t' );
+	in.open(stimulus_file);
+
+	term.print_line("Scanning them now ...");
+	
+	skip_header(in);
+	# Now read in the actual trail info from the file
+	loop int index = 1 until index > number_of_trials begin 
+		parse_full_line(in, index); 
+		index = index + 1;
+	end;
+
+	in.close();
+
+	if (in.end_of_file()) then
+		term.print_line("Succes! Reached end of the file; closed file.")
+	else
+		term.print_line("FAIL! HORROR! Encountered an error; closed file.")
+	end;	
+end;

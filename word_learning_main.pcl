@@ -1,0 +1,113 @@
+# Main PCL script
+
+# Load in the relevant pcl files. Note that order matters!
+include_once "word_learning_parameters.pcl";
+include_once "word_learning_subroutines.pcl";
+
+open_stimulus_data_file();
+
+if(!all_sound_files_exist()) then exit("Not all sound files could be found! (See terminal for details)"); end;
+
+if(!all_movie_files_exist()) then exit("Not all video files could be found! (See terminal for details)"); end;
+
+if(!all_image_files_exist()) then exit("Not all image files could be found! (See terminal for details)"); end;
+
+if (output_port_manager.port_count () == 0) then	###controls for whether you really have selected an output port
+	display("Forgot to add an output port!!!", 3)
+end;
+
+output_port oport = output_port_manager.get_port (1);
+
+### Starting with an attention grabber####
+
+
+int cnt=1; # so you know which attention grabber to play, starting with the first 1
+
+MOVIES[cnt].prepare();
+display(string(MOVIES[cnt].duration()), 5);
+attention_event.set_stimulus (MOVIES[cnt]);
+attentiongrabber_trial.present(); # we start with an attention grabber
+
+##############################
+### MAIN TRIAL DEFINITION####
+##############################
+
+loop
+   int i_trial = 1  #you create a new variable called 'i_trial' (1-240)
+until
+  i_trial > BLOCK.count()
+
+begin 
+
+	####resetting parameters for each trial###
+	string q = IMAGE_DIR + IMAGE_FILES[i_trial];
+	bit.set_filename (q);
+	bit.load();
+
+	string f = SOUND_DIR + SOUND_FILES[i_trial]; #new variable 'f' where the wavfile (as string) is defined as (abc.wav)
+	s.set_filename (f); #reset; cf.  line 49 where s is defined, and line 189 where f is defined
+	s.load();
+
+	picevent.set_stimulus (pic1);
+	picevent.set_event_code (IMAGE_FILES[i_trial]); #changes log code into name of picture
+
+	picidentity.set_event_code (string (IDENTITY[i_trial]));
+	picidentity.set_port_code (IDENTITY[i_trial]);
+
+	picnumber.set_event_code (string (NUMBER[i_trial]));
+	picnumber.set_port_code (NUMBER[i_trial]);
+
+	wavevent.set_stimulus( snd );
+	wavevent.set_event_code (SOUND_FILES[i_trial]);
+	wavevent.set_port_code (13);
+
+	wavidentity.set_event_code (string (IDENTITY[i_trial]));
+	wavidentity.set_port_code (IDENTITY[i_trial]);
+
+	wavnumber.set_event_code (string (NUMBER[i_trial]));
+	wavnumber.set_port_code (NUMBER[i_trial]);
+
+	background.set_event_code (string (BLOCK[i_trial]));
+	background.set_port_code (BLOCK[i_trial]);
+	background.set_target_button (1);
+
+	trial1.present();
+
+	bit.unload();
+	s.unload(); #unload so that new wav file can be played 
+
+	isi.present ();
+
+	int type = stimulus_manager.last_stimulus_data().type();
+	if (type ==stimulus_hit) then
+		if cnt > 5 then 
+			cnt = 1
+		else 
+			cnt = cnt+1;
+		end;
+		
+		MOVIES[cnt].prepare();
+		attention_event.set_stimulus (MOVIES[cnt]);
+		attentiongrabber_trial.present();
+	elseif (type == stimulus_miss) then #so with no key press it just continues to the next line
+		#Nothing here.
+	end; #end of if-when to play an attention grabber
+ 
+	if (i_trial == 48 || i_trial == 96 || i_trial == 144 || i_trial == 192) then
+		if cnt >= MOVIES.count() then 
+			cnt = 1
+		else 
+			cnt = cnt+1;
+		end;
+		pauze.present (); #"PAUZE!"
+		MOVIES[cnt].prepare ();
+		attention_event.set_stimulus (MOVIES[cnt]);
+		attentiongrabber_trial.present();
+  end;
+  
+  if (i_trial == 240) then
+	play_einde.present ();
+  end;
+
+  i_trial = i_trial + 1 ; 
+end;

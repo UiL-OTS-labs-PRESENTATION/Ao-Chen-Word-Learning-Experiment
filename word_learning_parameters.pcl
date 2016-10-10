@@ -1,0 +1,18 @@
+# This script is responsible for getting parameter settings and holding global variables
+
+array <int> BLOCK[0];
+
+array <int> IDENTITY[0];
+array <int> NUMBER[0];
+
+array <string> IMAGE_FILES[0];
+array <string> SOUND_FILES[0];
+
+array <video> MOVIES[0];
+parameter_manager.get_videos("Movies", MOVIES);
+
+string TRIAL_LIST_FILENAME = parameter_manager.get_string("Trial List");
+
+string SOUND_DIR = "sounds/";
+string IMAGE_DIR = "images/";
+string MOVIE_DIR = "movies/";
