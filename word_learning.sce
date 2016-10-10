@@ -61,8 +61,11 @@ pulse_width= 20;
 
 response_matching = simple_matching;
 
-active_buttons 				= 1;
-button_codes 					= 1;
+# define button codes, 3=enter/return, 1=space(down), 2=space(up) where pressing space down indicates a looking behaviour and space up indicates looking away
+active_buttons 				= 3;
+button_codes 					= 3,1,2;
+response_logging 				= log_active;
+
 default_font_size 			= 48;
 default_background_color 	= 82, 82, 82;
 
@@ -113,8 +116,8 @@ trial {
 		response_active = true; 
 		port_code = 100;
 		code = "attentiongrabber";
-	}attention_event;
-}attentiongrabber_trial;
+	} attention_event;
+} attentiongrabber_trial;
 	
 trial { 
 	trial_duration = 2200;
