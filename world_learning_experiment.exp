@@ -65,9 +65,7 @@
 </val>
 <val>
 <dat>
-<fns>
-<fn>StimuliFiles\movies\samplevideo.avi</fn>
-</fns>
+<val>samplevideo.avi</val>
 </dat>
 <id>1</id>
 </val>
@@ -109,13 +107,13 @@
 <set>
 <desc>filenames for videos that are used for the attention grabber. Files are expected to be in a 'movies' directory in the stimulus directory.</desc>
 <edit>1</edit>
-<name>Movies</name>
+<name>Video Files</name>
 <set>
 <dim>1</dim>
-<file_list></file_list>
+<rest></rest>
 </set>
 <temp>0</temp>
-<type>video_array</type>
+<type>string_array</type>
 <vis>1</vis>
 </set>
 </parm>
@@ -266,6 +264,11 @@
 <name>Keyboard</name>
 </device>
 <device>
+<device_type>3</device_type>
+<dx_device_type>0</dx_device_type>
+<name>Standard PS/2 Keyboard</name>
+</device>
+<device>
 <abs_axis>
 <dead_zone>0</dead_zone>
 <max>1000</max>
@@ -306,11 +309,6 @@
 <max_raw_pos>65535</max_raw_pos>
 <min_raw_pos>0</min_raw_pos>
 <name>HID-compliant mouse</name>
-</device>
-<device>
-<device_type>3</device_type>
-<dx_device_type>0</dx_device_type>
-<name>Standard PS/2 Keyboard</name>
 </device>
 <device>
 <abs_axis>
@@ -518,10 +516,18 @@
 <device_type>3</device_type>
 <dx_device_type>19</dx_device_type>
 <ibn>Enter</ibn>
+<ibn>Space</ibn>
+<ibn>Space (up)</ibn>
 <idn>Keyboard</idn>
 <index>0</index>
+<index>1</index>
+<index>2</index>
+<label></label>
+<label></label>
 <label></label>
 <offset>28</offset>
+<offset>57</offset>
+<offset>2147483705</offset>
 </idv>
 <sfn>C:\Users\VM-Windows\Development\Ao-Chen-Word-Learning-Experiment\word_learning.sce</sfn>
 </sce>
@@ -556,7 +562,7 @@
 <sde>
 <buffer_length>1000</buffer_length>
 <custom_buf>sec_sw</custom_buf>
-<default>1</default>
+<default>0</default>
 <dup_channels>0</dup_channels>
 <ex_period>10</ex_period>
 <halt_on_underrun>1</halt_on_underrun>
@@ -568,13 +574,13 @@
 <side_speakers>1</side_speakers>
 <use_rewind_distance>0</use_rewind_distance>
 </sde>
-<sdv>Primary Sound Driver</sdv>
+<sdv>Speakers (High Definition Audio Device)</sdv>
 <show_dis>1</show_dis>
 <show_parm>1</show_parm>
 <show_term>1</show_term>
 <smc>2</smc>
 <smd>16</smd>
-<smr>48000</smr>
+<smr>44100</smr>
 <srs>1</srs>
 <sse>
 <s>

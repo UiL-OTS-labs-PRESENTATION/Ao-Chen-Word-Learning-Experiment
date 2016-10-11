@@ -149,18 +149,18 @@ trial {
 		stimulus_event{
 			nothing {};
 			deltat = 50; 
-			code = "21"; #overwritten in pcl
+			code = "placeholder"; #overwritten in pcl
 			port_code = 21; #ibid
-		}wavidentity;	#gives information to which part of the block and what kind of block the wav belongs to
+		} wavidentity;	#gives information to which part of the block and what kind of block the wav belongs to
 			
 		stimulus_event{
 			nothing {};
 			deltat = 50; 
-			code = "16"; #overwritten in pcl
+			code = "placeholder"; #overwritten in pcl
 			port_code = 16; #ibid
-		}wavnumber;	#gives information to which presentation in the training block [1-6] or match/mismatch or eyetracking
+		} wavnumber;	#gives information to which presentation in the training block [1-6] or match/mismatch or eyetracking
          
-}trial1;			
+} main_trial;			
 					
 trial {
 	trial_duration = 1000; # duration of trial
@@ -169,9 +169,9 @@ trial {
 			picture default;  #as defined in sdl
 			time = 0;
 			code = "isi: bloknummer"; 
-			port_code = 20; # overwritten in pcl
+			port_code = 999; # overwritten in pcl
 		}background;
-}isi;
+} inter_stimuli_interval;
 
 
 trial {

@@ -77,12 +77,12 @@ begin
 	background.set_port_code (BLOCK[i_trial]);
 	background.set_target_button (1);
 
-	trial1.present();
+	main_trial.present();
 
 	bit.unload();
 	s.unload(); #unload so that new wav file can be played 
 
-	isi.present ();
+	inter_stimuli_interval.present ();
 
 	int type = stimulus_manager.last_stimulus_data().type();
 	if (type ==stimulus_hit) then
