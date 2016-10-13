@@ -96,6 +96,8 @@ picture {
 	background_color = 82, 82, 82;
 } default; #default
 
+nothing {} empty;
+
 picture {
 	background_color = 82, 82, 82;
 	text einde_txt; 
@@ -127,10 +129,19 @@ trial {
 		stimulus_event{
 			picture pic1;        # Show picture ; pic1 will be overwritten in pcl
 				time = 0;
+				duration = 500;
 				code = "onset picture"; #will be given name of image file
 				port_code = 53;
-		}picevent;					# The event of presenting picture is called 'picevent'
-			
+		}picevent1;					# The event of presenting picture is called 'picevent'
+		
+		stimulus_event{
+			picture pic1;        # Show picture ; pic1 will be overwritten in pcl
+				time = 1000;
+				duration = 500;
+				code = "onset picture"; #will be given name of image file
+				port_code = 54;
+		}picevent2;					# The event of presenting picture is called 'picevent'
+		
 		stimulus_event{
 			nothing {};
 			deltat = 50; 

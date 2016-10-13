@@ -16,8 +16,9 @@ begin
 end;
 
 sub
-	bool blank_image(string filename)
+	bool blank_image_trial(int i_trial)
 begin
+	string filename = IMAGE_FILES[i_trial];
 	return filename.count() == 0 || filename == "BLANK" || filename == "empty" || filename == "EMPTY" || filename == "blank"
 end;
 
@@ -28,14 +29,13 @@ sub
 	bool all_image_files_exist
 begin
 	loop int index = 1 until index > IMAGE_FILES.count() begin
-		if(!blank_image(IMAGE_FILES[index]) && !file_exists(stimulus_directory + IMAGE_DIR + IMAGE_FILES[index])) then
+		if(!blank_image_trial(index) && !file_exists(stimulus_directory + IMAGE_DIR + IMAGE_FILES[index])) then
 			term.print_line("Could not find the file: " + IMAGE_FILES[index]);
 		end;
 		index = index+1;
 	end;
 	return true;
 end;
-
 
 
 #######
@@ -121,6 +121,15 @@ begin
 	IDENTITY.add(file.get_int());
 	NUMBER.add(file.get_int());
 	IMAGE_FILES.add(file.get_string());
+	
+	
+	array <int> timewindow[2][2];
+	timewindow[1][1] = file.get_int();
+	timewindow[1][2] = file.get_int();
+	timewindow[2][1] = file.get_int();
+	timewindow[2][2] = file.get_int();
+	IMAGE_TIME_WINDOWS.add(timewindow);
+	
 	SOUND_FILES.add(file.get_string());
 end;
 
@@ -158,4 +167,51 @@ begin
 	else
 		term.print_line("FAIL! HORROR! Encountered an error; closed file.")
 	end;	
+end;
+
+#######
+# Sets main trial to show blank
+#######
+sub
+	set_blank_main_trial
+begin
+	picevent1.set_stimulus(default);
+	picevent1.set_event_code("Empty");
+	
+	picevent2.set_stimulus(default);
+	picevent2.set_event_code("Empty");
+end;
+
+#######
+# Sets main trial with optional blink
+#######
+sub
+	set_main_trial_with_optional_blink(int i_trial)
+begin
+	# Do loading of the picture.
+	bit.set_filename(IMAGE_DIR + IMAGE_FILES[i_trial]);
+	bit.load();
+	
+	array<int> time_window[2][2] = IMAGE_TIME_WINDOWS[i_trial];
+	int duration_1 = time_window[1][2]-time_window[1][1];
+	int duration_2 = time_window[2][2]-time_window[2][1];
+	
+	picevent1.set_stimulus(pic1);
+	picevent1.set_event_code (IMAGE_FILES[i_trial]);
+	picevent1.set_time(time_window[1][1]);
+	picevent1.set_duration(duration_1);
+	
+	if (duration_2 > 0 && time_window[1][2] < time_window[2][1]) then # things are correctly set so set up the second time window
+		picevent2.set_stimulus(pic1);
+		picevent2.set_event_code(IMAGE_FILES[i_trial]);
+		picevent2.set_time(time_window[2][1]);
+		picevent2.set_duration(duration_2);
+	else # things are NOT correctly set up the second time window
+		picevent2.set_time(time_window[1][1]+50);
+		picevent2.set_stimulus(empty);
+		picevent2.set_event_code("Empty");
+		picevent2.set_duration(0);
+		term.print_line("Something went wrong with the time windows on trial " + string(i_trial));
+	end;
+	
 end;

@@ -43,14 +43,10 @@ begin
 
 	####resetting parameters for each trial###
 
-	if ( blank_image(IMAGE_FILES[i_trial])) then
-		picevent.set_stimulus(default);
-		picevent.set_event_code("Empty");
+	if ( blank_image_trial(i_trial) ) then
+		set_blank_main_trial()
 	else
-		bit.set_filename(IMAGE_DIR + IMAGE_FILES[i_trial]);
-		bit.load();
-		picevent.set_stimulus(pic1);
-		picevent.set_event_code (IMAGE_FILES[i_trial]);
+		set_main_trial_with_optional_blink(i_trial)
 	end;
 	
 	string f = SOUND_DIR + SOUND_FILES[i_trial]; #new variable 'f' where the wavfile (as string) is defined as (abc.wav)

@@ -264,11 +264,6 @@
 <name>Keyboard</name>
 </device>
 <device>
-<device_type>3</device_type>
-<dx_device_type>0</dx_device_type>
-<name>Standard PS/2 Keyboard</name>
-</device>
-<device>
 <abs_axis>
 <dead_zone>0</dead_zone>
 <max>1000</max>
@@ -309,6 +304,11 @@
 <max_raw_pos>65535</max_raw_pos>
 <min_raw_pos>0</min_raw_pos>
 <name>HID-compliant mouse</name>
+</device>
+<device>
+<device_type>3</device_type>
+<dx_device_type>0</dx_device_type>
+<name>Standard PS/2 Keyboard</name>
 </device>
 <device>
 <abs_axis>
@@ -561,20 +561,20 @@
 </sct>
 <sde>
 <buffer_length>1000</buffer_length>
-<custom_buf>sec_sw</custom_buf>
-<default>0</default>
+<custom_buf>primary</custom_buf>
+<default>1</default>
 <dup_channels>0</dup_channels>
 <ex_period>10</ex_period>
 <halt_on_underrun>1</halt_on_underrun>
 <max_mix_length>400</max_mix_length>
 <min_mix_length>100</min_mix_length>
-<mixer>dx_software</mixer>
+<mixer>custom</mixer>
 <rewind_distance>10</rewind_distance>
 <sh_period>0</sh_period>
 <side_speakers>1</side_speakers>
 <use_rewind_distance>0</use_rewind_distance>
 </sde>
-<sdv>Speakers (High Definition Audio Device)</sdv>
+<sdv>Primary Sound Driver</sdv>
 <show_dis>1</show_dis>
 <show_parm>1</show_parm>
 <show_term>1</show_term>
@@ -592,7 +592,7 @@
 </sse>
 <svl>
 <attenuation>1</attenuation>
-<do_attenuation>1</do_attenuation>
+<do_attenuation>0</do_attenuation>
 <do_volume>0</do_volume>
 <volume>1</volume>
 </svl>
