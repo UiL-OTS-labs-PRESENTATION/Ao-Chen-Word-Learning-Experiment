@@ -1,18 +1,22 @@
 # This script is responsible for getting parameter settings and holding global variables
 
-array <int> BLOCK[0];
-
-array <int> IDENTITY[0];
-array <int> NUMBER[0];
+array <int> UNIQUE_IDENTITIES[0];
+array <int> BLOCKS[0];
+array <int> GROUP_IDENTITIES[0];
 
 array <string> IMAGE_FILES[0];
 array <string> SOUND_FILES[0];
+
+array <int> ONSET_TRIGGERS[0];
 
 array <int> IMAGE_TIME_WINDOWS[0][2][2]; # [ [start_time_pic, stop_time_pic] , [start_time_pic, stop_time_pic] ]
 
 array <video> MOVIES[0];
 array <string> MOVIE_LIST_FILENAMES[0];
 parameter_manager.get_strings("Video Files", MOVIE_LIST_FILENAMES);
+
+int TRIAL_DURATION = parameter_manager.get_int("Trial Duration");
+int IGI_DURATION = parameter_manager.get_int("Inter-Group Interval Duration");
 
 string TRIAL_LIST_FILENAME = parameter_manager.get_string("Trial List");
 

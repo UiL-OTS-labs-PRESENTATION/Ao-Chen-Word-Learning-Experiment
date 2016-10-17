@@ -69,6 +69,18 @@
 </dat>
 <id>1</id>
 </val>
+<val>
+<dat>
+<val>1000</val>
+</dat>
+<id>2</id>
+</val>
+<val>
+<dat>
+<val>1000</val>
+</dat>
+<id>3</id>
+</val>
 </sd>
 <sid>-1</sid>
 </ss>
@@ -82,6 +94,8 @@
 <pl>
 <pid>0</pid>
 <pid>1</pid>
+<pid>2</pid>
+<pid>3</pid>
 </pl>
 </grp>
 </grps>
@@ -114,6 +128,34 @@
 </set>
 <temp>0</temp>
 <type>string_array</type>
+<vis>1</vis>
+</set>
+</parm>
+<parm>
+<id>2</id>
+<set>
+<desc>Duration of a trial in seconds. Note that this is a 'window' in the experiment paradigm.</desc>
+<edit>1</edit>
+<name>Trial Duration</name>
+<set>
+<rest></rest>
+</set>
+<temp>0</temp>
+<type>int</type>
+<vis>1</vis>
+</set>
+</parm>
+<parm>
+<id>3</id>
+<set>
+<desc>Kind of link an inter-stimuli interval but between groups of trials.</desc>
+<edit>1</edit>
+<name>Inter-Group Interval Duration</name>
+<set>
+<rest></rest>
+</set>
+<temp>0</temp>
+<type>int</type>
 <vis>1</vis>
 </set>
 </parm>

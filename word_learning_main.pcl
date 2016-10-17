@@ -19,11 +19,10 @@ end;
 
 output_port oport = output_port_manager.get_port (1);
 
-
+main_trial.set_duration(TRIAL_DURATION);
+inter_group_interval.set_duration(IGI_DURATION);
 
 ### Starting with an attention grabber####
-
-
 int attentiongrabber_index=1; # so you know which attention grabber to play, starting with the first 1
 
 MOVIES[attentiongrabber_index].prepare();
@@ -37,7 +36,7 @@ attentiongrabber_trial.present(); # we start with an attention grabber
 loop
    int i_trial = 1  #you create a new variable called 'i_trial' (1-240)
 until
-  i_trial > BLOCK.count()
+  i_trial > BLOCKS.count()
 
 begin 
 
@@ -50,38 +49,26 @@ begin
 	end;
 	
 	string f = SOUND_DIR + SOUND_FILES[i_trial]; #new variable 'f' where the wavfile (as string) is defined as (abc.wav)
-	s.set_filename (f); #reset; cf.  line 49 where s is defined, and line 189 where f is defined
-	s.load();
-
-	picidentity.set_event_code (string (IDENTITY[i_trial]));
-	picidentity.set_port_code (IDENTITY[i_trial]);
-
-	picnumber.set_event_code (string (NUMBER[i_trial]));
-	picnumber.set_port_code (NUMBER[i_trial]);
-
+	soundfile.set_filename (f);
+	soundfile.load();
+	
 	wavevent.set_stimulus( snd );
 	wavevent.set_event_code (SOUND_FILES[i_trial]);
 	wavevent.set_port_code (13);
 
-	wavidentity.set_event_code (string (IDENTITY[i_trial]));
-	wavidentity.set_port_code (IDENTITY[i_trial]);
-
-	wavnumber.set_event_code (string (NUMBER[i_trial]));
-	wavnumber.set_port_code (NUMBER[i_trial]);
-
-	background.set_event_code (string (BLOCK[i_trial]));
-	background.set_port_code (BLOCK[i_trial]);
+	background.set_event_code (string (BLOCKS[i_trial]));
+	background.set_port_code (BLOCKS[i_trial]);
 	background.set_target_button (1);
 
 	main_trial.present();
 
 	bit.unload();
-	s.unload(); #unload so that new wav file can be played 
+	soundfile.unload(); #unload so that new wav file can be played 
 
-	inter_stimuli_interval.present ();
+	inter_group_interval.present ();
 
 	int type = stimulus_manager.last_stimulus_data().type();
-	if (type ==stimulus_hit) then
+	if (type == stimulus_hit) then
 		if attentiongrabber_index > 5 then 
 			attentiongrabber_index = 1
 		else 
@@ -107,7 +94,7 @@ begin
 		attentiongrabber_trial.present();
   end;
   
-  if (i_trial == 240) then
+  if (i_trial == BLOCKS.count()) then # we are in the final trial
 	play_einde.present ();
   end;
 

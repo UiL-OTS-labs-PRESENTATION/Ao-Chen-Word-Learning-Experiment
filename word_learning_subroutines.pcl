@@ -117,11 +117,10 @@ end;
 sub
 	parse_full_line(input_file& file, int index)
 begin
-	BLOCK.add(file.get_int());
-	IDENTITY.add(file.get_int());
-	NUMBER.add(file.get_int());
+	UNIQUE_IDENTITIES.add(file.get_int());
+	BLOCKS.add(file.get_int());
+	GROUP_IDENTITIES.add(file.get_int());
 	IMAGE_FILES.add(file.get_string());
-	
 	
 	array <int> timewindow[2][2];
 	timewindow[1][1] = file.get_int();
@@ -131,6 +130,7 @@ begin
 	IMAGE_TIME_WINDOWS.add(timewindow);
 	
 	SOUND_FILES.add(file.get_string());
+	ONSET_TRIGGERS.add(file.get_int());
 end;
 
 #######

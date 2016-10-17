@@ -72,7 +72,7 @@ default_background_color 	= 82, 82, 82;
 begin;
 ################ DEFINE OBJECTS 
 
-sound { wavefile { filename = ""; preload = false;} s; } snd;  #define sound 1 
+sound { wavefile { filename = ""; preload = false;} soundfile; } snd;  #define sound 1 
 
 picture {
 	default_code = "";
@@ -125,64 +125,40 @@ trial {
 	trial_duration = 2200;
 	monitor_sounds = true;
 	all_responses = false;
-	
+		
+		stimulus_event{          # play target word                
+			sound snd;
+			code = "onset audio";
+			time = 0;
+		} wavevent;               # the event of presenting the wav file is called wavevent   
+		
 		stimulus_event{
 			picture pic1;        # Show picture ; pic1 will be overwritten in pcl
 				time = 0;
 				duration = 500;
-				code = "onset picture"; #will be given name of image file
+				code = "will be given name of image file";
 				port_code = 53;
-		}picevent1;					# The event of presenting picture is called 'picevent'
+		} picevent1;					# The event of presenting picture is called 'picevent'
 		
 		stimulus_event{
 			picture pic1;        # Show picture ; pic1 will be overwritten in pcl
 				time = 1000;
 				duration = 500;
-				code = "onset picture"; #will be given name of image file
+				code = "will be given name of image file";
 				port_code = 54;
-		}picevent2;					# The event of presenting picture is called 'picevent'
-		
-		stimulus_event{
-			nothing {};
-			deltat = 50; 
-		}picidentity;	#gives information to which part of the block and what kind of block the picture belongs to
-			
-		stimulus_event{
-			nothing {};
-			deltat = 50; 
-		}picnumber;	#gives information to which presentation in the training block [1-6] or match/mismatch or eyetracking it has
-				
-		stimulus_event{          # play target word                
-			sound snd;
-				time = 1000;
-		}wavevent;               # the event of presenting the wav file is called wavevent   
-
-		stimulus_event{
-			nothing {};
-			deltat = 50; 
-			code = "placeholder"; #overwritten in pcl
-			port_code = 21; #ibid
-		} wavidentity;	#gives information to which part of the block and what kind of block the wav belongs to
-			
-		stimulus_event{
-			nothing {};
-			deltat = 50; 
-			code = "placeholder"; #overwritten in pcl
-			port_code = 16; #ibid
-		} wavnumber;	#gives information to which presentation in the training block [1-6] or match/mismatch or eyetracking
+		} picevent2;					# The event of presenting picture is called 'picevent'
          
 } main_trial;			
 					
 trial {
-	trial_duration = 1000; # duration of trial
 	all_responses = false;
 		stimulus_event {
 			picture default;  #as defined in sdl
 			time = 0;
-			code = "isi: bloknummer"; 
+			code = "inter_group_interval"; 
 			port_code = 999; # overwritten in pcl
 		}background;
-} inter_stimuli_interval;
+} inter_group_interval;
 
 
 trial {
