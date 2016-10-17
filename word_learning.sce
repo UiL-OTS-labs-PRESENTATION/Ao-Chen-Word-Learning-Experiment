@@ -82,7 +82,7 @@ picture {
 } pic1; #define pic1
 
 text {caption = "PAUZE"; } pauze_txt;
-text {caption = "EINDE       BEDANKT!"; } einde_txt;
+text {caption = "EINDE; HEEL ERG BEDANKT!"; } einde_txt;
 
 picture {
 	background_color = 82, 82, 82;
@@ -102,7 +102,7 @@ picture {
 	text einde_txt; 
 	x = 0;
 	y = 0;  
-}einde; #einde picture
+} einde; #einde picture
 
 
 ################# DEFINE TRIALS
@@ -154,7 +154,7 @@ trial {
 		time = 0;
 		code = "inter_group_interval:98"; 
 		port_code = 98;
-	}background;
+	} background;
 } inter_group_interval;
 
 
@@ -167,8 +167,8 @@ trial {
 		target_button = 1; 
 		response_active = true; 
 		port_code = 99;
-	}breaky;
-}pauze;
+	} breaky;
+} pauze;
 	
 trial {
 	trial_type = first_response;
