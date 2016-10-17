@@ -226,5 +226,47 @@ begin
 			term.print_line("Something went wrong with the time windows on trial " + string(i_trial));
 		end;
 	end;
+end;
+
+#######
+# Counts the different number of sets/groups
+#######
+sub
+	int number_of_groups
+begin
+	int group_count = 0;
+	int last_group = 0;
 	
+	loop int index = 1 until index > GROUP_IDENTITIES.count() begin 
+		if ( last_group != GROUP_IDENTITIES[index] ) then
+			group_count = group_count + 1;
+			last_group = GROUP_IDENTITIES[index];
+		end;
+		index = index + 1;
+	end;
+	
+	return group_count;
+end;
+
+#######
+# Counts the different number of sets/groups
+#######
+sub
+	int get_start_group_of_block(int block_nr)
+begin
+	int group_count = 0;
+	int last_group = 0;
+	
+	loop int index = 1 until index > GROUP_IDENTITIES.count() begin 
+		if ( last_group != GROUP_IDENTITIES[index] ) then
+			group_count = group_count + 1;
+			last_group = GROUP_IDENTITIES[index];
+			if ( block_nr == BLOCKS[index] ) then
+				return group_count;
+			end;
+		end;
+		index = index + 1;
+	end;
+	
+	return group_count;
 end;

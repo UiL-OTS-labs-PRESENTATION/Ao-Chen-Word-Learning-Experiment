@@ -19,8 +19,43 @@ end;
 
 output_port oport = output_port_manager.get_port (1);
 
+## set some SDL-based defaults
 main_trial.set_duration(TRIAL_DURATION);
 inter_group_interval.set_duration(IGI_DURATION);
+
+## GENERATE ORDER OF TRIALS
+array<int> trial_order[number_of_groups()];
+int start_index_test_group = get_start_group_of_block(2);
+
+# Fill up the training phase
+trial_order.fill(1, start_index_test_group-1, 1, 3);
+int first_index_of_test_phase = trial_order[start_index_test_group-1] + 3;
+trial_order.shuffle(1, start_index_test_group-1);
+
+# Fill up the test phase
+trial_order.fill(start_index_test_group, trial_order.count(), first_index_of_test_phase , 1);
+trial_order.shuffle(start_index_test_group, trial_order.count());
+
+array<int> TRIAL_ORDER[0];
+
+loop
+   int index 	= 1;  #you create a new variable called 'i_trial' (1-240)
+until
+  index > trial_order.count()
+begin 
+	if ( trial_order[index] < first_index_of_test_phase ) then
+		TRIAL_ORDER.add(trial_order[index]);
+		TRIAL_ORDER.add(trial_order[index]+1);
+		TRIAL_ORDER.add(trial_order[index]+2);
+	else
+		TRIAL_ORDER.add(trial_order[index]);
+	end;
+
+	index = index + 1;
+end;
+
+term.print(trial_order);
+term.print(TRIAL_ORDER);
 
 ### Starting with an attention grabber####
 int attentiongrabber_index=1; # so you know which attention grabber to play, starting with the first 1
@@ -28,6 +63,7 @@ int attentiongrabber_index=1; # so you know which attention grabber to play, sta
 MOVIES[attentiongrabber_index].prepare();
 attention_event.set_stimulus(MOVIES[attentiongrabber_index]);
 attentiongrabber_trial.present(); # we start with an attention grabber
+
 
 ##############################
 ### MAIN TRIAL DEFINITION####
@@ -38,28 +74,26 @@ loop
 	int last_group = 0;
 until
   i_trial > BLOCKS.count()
-
 begin 
-	
-	term.print_line(string(last_group) + " vs " + string(GROUP_IDENTITIES[i_trial]) );
+	int randomised_order_trial = TRIAL_ORDER[i_trial];
 	
 	## BACKGROUND IGI
-	background.set_event_code ( "inter_group_interval:" + string(BLOCKS[i_trial]));
-	background.set_port_code (BLOCKS[i_trial]);
+	background.set_event_code ( "inter_group_interval:" + string(BLOCKS[randomised_order_trial]));
+	background.set_port_code (BLOCKS[randomised_order_trial]);
 	
 	## only imply the group interval if we are between groups!
-	if (last_group != GROUP_IDENTITIES[i_trial] ) then
+	if (last_group != GROUP_IDENTITIES[randomised_order_trial] ) then
 		inter_group_interval.present();
-		last_group = GROUP_IDENTITIES[i_trial];
+		last_group = GROUP_IDENTITIES[randomised_order_trial];
 	end;
 	
 	## SETUP SOUNDFILE
-	string f = SOUND_DIR + SOUND_FILES[i_trial]; #new variable 'f' where the wavfile (as string) is defined as (abc.wav)
+	string f = SOUND_DIR + SOUND_FILES[randomised_order_trial]; #new variable 'f' where the wavfile (as string) is defined as (abc.wav)
 	soundfile.set_filename (f);
 	soundfile.load();
 	
-	if (ONSET_TRIGGERS[i_trial] > 0) then
-		wavevent.set_port_code(ONSET_TRIGGERS[i_trial]);
+	if (ONSET_TRIGGERS[randomised_order_trial] > 0) then
+		wavevent.set_port_code(ONSET_TRIGGERS[randomised_order_trial]);
 	else
 		wavevent.set_port_code(0);
 	end;
@@ -67,13 +101,13 @@ begin
 	array<double> port_codes[1];
 	wavevent.get_port_codes(port_codes);
 	wavevent.set_stimulus( snd );
-	wavevent.set_event_code (SOUND_FILES[i_trial] + ":"  + string(port_codes[1]));
+	wavevent.set_event_code (SOUND_FILES[randomised_order_trial] + ":"  + string(port_codes[1]));
 	
 	## SETUP PICTURES
-	if ( blank_image_trial(i_trial) ) then
+	if ( blank_image_trial(randomised_order_trial) ) then
 		set_blank_main_trial()
 	else
-		set_main_trial_with_optional_blink(i_trial)
+		set_main_trial_with_optional_blink(randomised_order_trial)
 	end;
 	
 	## Present main
@@ -109,7 +143,7 @@ begin
 		attentiongrabber_trial.present();
   end;
   
-  if (i_trial == BLOCKS.count()) then # we are in the final trial
+  if (randomised_order_trial == BLOCKS.count()) then # we are in the final trial
 	play_einde.present ();
   end;
 
