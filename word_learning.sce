@@ -122,8 +122,6 @@ trial {
 } attentiongrabber_trial;
 	
 trial { 
-	trial_duration = 2200;
-	monitor_sounds = true;
 	all_responses = false;
 		
 		stimulus_event{          # play target word                
@@ -156,7 +154,6 @@ trial {
 			picture default;  #as defined in sdl
 			time = 0;
 			code = "inter_group_interval"; 
-			port_code = 999; # overwritten in pcl
 		}background;
 } inter_group_interval;
 
@@ -175,10 +172,16 @@ trial {
 	
 trial {
 	trial_type = first_response;
-	trial_duration = forever; 
+	trial_duration = forever;
+	
+	stimulus_event {
+		picture default;
+		time = 0;
+	};
+	
 	stimulus_event {
 		picture einde;
-		time = 0;
+		time = 4000;
 		target_button = 1; 
 		response_active = true; 
 		port_code = 99;

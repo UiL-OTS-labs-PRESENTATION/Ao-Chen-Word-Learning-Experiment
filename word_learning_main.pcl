@@ -34,12 +34,12 @@ attentiongrabber_trial.present(); # we start with an attention grabber
 ##############################
 
 loop
-   int i_trial = 1  #you create a new variable called 'i_trial' (1-240)
+   int i_trial 	= 1;  #you create a new variable called 'i_trial' (1-240)
+	int last_group = 0;
 until
   i_trial > BLOCKS.count()
 
 begin 
-
 	####resetting parameters for each trial###
 
 	if ( blank_image_trial(i_trial) ) then
@@ -54,19 +54,29 @@ begin
 	
 	wavevent.set_stimulus( snd );
 	wavevent.set_event_code (SOUND_FILES[i_trial]);
-	wavevent.set_port_code (13);
+	if (ONSET_TRIGGERS[i_trial] > 0) then
+		wavevent.set_port_code(ONSET_TRIGGERS[i_trial]);
+	else
+		wavevent.set_port_code(0);
+	end;
+	
 
 	background.set_event_code (string (BLOCKS[i_trial]));
 	background.set_port_code (BLOCKS[i_trial]);
 	background.set_target_button (1);
-
+	
+	# only imply the group interval if we are between groups!
+	if (last_group != GROUP_IDENTITIES[i_trial] ) then
+		inter_group_interval.present();
+		last_group = GROUP_IDENTITIES[i_trial];
+	end;
+	
+	
 	main_trial.present();
 
 	bit.unload();
 	soundfile.unload(); #unload so that new wav file can be played 
-
-	inter_group_interval.present ();
-
+	
 	int type = stimulus_manager.last_stimulus_data().type();
 	if (type == stimulus_hit) then
 		if attentiongrabber_index > 5 then 
