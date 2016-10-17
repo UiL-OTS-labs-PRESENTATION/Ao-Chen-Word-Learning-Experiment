@@ -199,7 +199,7 @@
 <username></username>
 </ftp>
 <idc>0</idc>
-<idt>1000</idt>
+<idt>0</idt>
 <ilc>0</ilc>
 <ip_chans></ip_chans>
 <lfd>C:\Users\VM-Windows\Development\Ao-Chen-Word-Learning-Experiment\LogFiles</lfd>

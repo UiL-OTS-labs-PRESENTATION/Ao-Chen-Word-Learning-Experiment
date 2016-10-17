@@ -51,7 +51,6 @@ make sure that txt file does not end on a blank line, but with last number
 scenario = "word_learning.sce";
 pcl_file = "word_learning_main.pcl";
 
-#no_logfile = true;
 scenario_type = trials;
 
 #write_codes = true; #		#WRITE CODES TO LOG/EEG PC
@@ -72,7 +71,7 @@ default_background_color 	= 82, 82, 82;
 begin;
 ################ DEFINE OBJECTS 
 
-sound { wavefile { filename = ""; preload = false;} soundfile; } snd;  #define sound 1 
+sound { wavefile { filename = ""; preload = false;} soundfile; } snd;
 
 picture {
 	default_code = "";
@@ -117,7 +116,7 @@ trial {
 		target_button = 1; #enter
 		response_active = true; 
 		port_code = 100;
-		code = "attentiongrabber";
+		code = "attentiongrabber:100";
 	} attention_event;
 } attentiongrabber_trial;
 	
@@ -150,11 +149,12 @@ trial {
 					
 trial {
 	all_responses = false;
-		stimulus_event {
-			picture default;  #as defined in sdl
-			time = 0;
-			code = "inter_group_interval"; 
-		}background;
+	stimulus_event {
+		picture default;  #as defined in sdl
+		time = 0;
+		code = "inter_group_interval:98"; 
+		port_code = 98;
+	}background;
 } inter_group_interval;
 
 
@@ -181,7 +181,7 @@ trial {
 	
 	stimulus_event {
 		picture einde;
-		time = 4000;
+		time = 2500;
 		target_button = 1; 
 		response_active = true; 
 		port_code = 99;
