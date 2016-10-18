@@ -24,38 +24,11 @@ main_trial.set_duration(TRIAL_DURATION);
 inter_group_interval.set_duration(IGI_DURATION);
 
 ## GENERATE ORDER OF TRIALS
-array<int> trial_order[number_of_groups()];
-int start_index_test_group = get_start_group_of_block(2);
-
-# Fill up the training phase
-trial_order.fill(1, start_index_test_group-1, 1, 3);
-int first_index_of_test_phase = trial_order[start_index_test_group-1] + 3;
-trial_order.shuffle(1, start_index_test_group-1);
-
-# Fill up the test phase
-trial_order.fill(start_index_test_group, trial_order.count(), first_index_of_test_phase , 1);
-trial_order.shuffle(start_index_test_group, trial_order.count());
-
 array<int> TRIAL_ORDER[0];
+generate_trial_order(TRIAL_ORDER);
 
-loop
-   int index 	= 1;  #you create a new variable called 'i_trial' (1-240)
-until
-  index > trial_order.count()
-begin 
-	if ( trial_order[index] < first_index_of_test_phase ) then
-		TRIAL_ORDER.add(trial_order[index]);
-		TRIAL_ORDER.add(trial_order[index]+1);
-		TRIAL_ORDER.add(trial_order[index]+2);
-	else
-		TRIAL_ORDER.add(trial_order[index]);
-	end;
-
-	index = index + 1;
-end;
-
-term.print(trial_order);
-term.print(TRIAL_ORDER);
+term.print("Trial order (by index): " );
+term.print_line(TRIAL_ORDER);
 
 ### Starting with an attention grabber####
 int attentiongrabber_index=1; # so you know which attention grabber to play, starting with the first 1

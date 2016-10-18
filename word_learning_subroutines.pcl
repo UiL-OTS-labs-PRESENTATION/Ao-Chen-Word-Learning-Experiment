@@ -270,3 +270,39 @@ begin
 	
 	return group_count;
 end;
+
+#######
+# Generate the trial order (random)
+#######
+sub
+	generate_trial_order(array<int>& TRIAL_ORDER[0])
+begin
+	# place holder for group
+	array<int> group_order[number_of_groups()];
+	int start_index_test_group = get_start_group_of_block(2);
+
+	# Fill up the training phase
+	group_order.fill(1, start_index_test_group-1, 1, 3);
+	int first_index_of_test_phase = group_order[start_index_test_group-1] + 3;
+	group_order.shuffle(1, start_index_test_group-1);
+
+	# Fill up the test phase
+	group_order.fill(start_index_test_group, group_order.count(), first_index_of_test_phase , 1);
+	group_order.shuffle(start_index_test_group, group_order.count());
+
+	loop
+		int index 	= 1;  #you create a new variable called 'i_trial' (1-240)
+	until
+	  index > group_order.count()
+	begin 
+		if ( group_order[index] < first_index_of_test_phase ) then
+			TRIAL_ORDER.add(group_order[index]);
+			TRIAL_ORDER.add(group_order[index]+1);
+			TRIAL_ORDER.add(group_order[index]+2);
+		else
+			TRIAL_ORDER.add(group_order[index]);
+		end;
+
+		index = index + 1;
+	end;
+end;
