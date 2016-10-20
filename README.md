@@ -1,10 +1,17 @@
 # Ao-Chen-Word-Learning-Experiment
-Presentation® Experiment for recording mismatch negativity ERP's around word learning.
+Presentation® Experiment for recording mismatch negativity ERP's around word 
+learning. Words and image pairs are meant to be learned during the training 
+phase and the detection of miss matches during the test phase.
 
-Each trial consists of the following parts, see _input lists_ below.
+The target participants are young children. Hence an attention grabber is 
+introduced in the form of an small movie. The attention grabber is played at the 
+start of the experiment and following every pause.
+
+Each trial in the experiment consists of the following parts, see _input lists_ 
+below.
 * Present `SOUND_FILE` and send `ONSET_TRIGGER`
-* Present `IMAGE_FILE` from `START1_` to `STOP1`, at onset send trigger *53*
-* Present `IMAGE_FILE` from `START2` to `STOP2` , at onset send trigger *54*
+* Present `IMAGE_FILE` from `START1_` to `STOP1`, at onset send `trigger 53`
+* Present `IMAGE_FILE` from `START2` to `STOP2` , at onset send `trigger 54`
 
 If `IMAGE_FILE` is one of the following no picture will be shown:
 * empty
@@ -13,20 +20,22 @@ If `IMAGE_FILE` is one of the following no picture will be shown:
 * 'BLANK'
 * 'blank'
 
-During training phase each trial is a group/set of three sub trials. 
-During test phase each trial consists of a group/set of a single sub trial.
-Being a member of a trial group is indicated via the input list.
+During the block that represent a training phase each group/set consists of three sub trials. 
+During the block that represents a trest phase each group/set consists of a single sub trial.
+Members of sub trials are indicated via the `GROUP_IDENTITY` column in the input list.
+
 
 # Important Keys
-* *Enter or Return* continues the attention grabber and pause
-* *Space (down)* indicates the start of a looking epoch
-* *Space (up)* indicates the end of a looking epoch
+The following keys are relevant in the experiment.
+* *Enter or Return* continues the attention grabber and pause, sends `trigger 3`
+* *Space (down)* indicates the start of a looking epoch, sends `trigger 1`
+* *Space (up)* indicates the end of a looking epoch, sends `trigger 2`
 
 # Input Lists
 An input list should be a tab-delimited text file with _no empty line_ at the end of the file. 
 It should have the following columns:
 * `UNIQUE_IDENTITY`: a unique number for each trial
-* `BLOCK`: block number (`1` for training test, `2` for test phase)
+* `BLOCK`: `1` for training phase, `2` for test phase)
 * `GROUP_IDENTITY`: if sub trial belongs to a group/set of trials (used for randomisation)
 * `IMAGE_FILE`
 * `START1`
