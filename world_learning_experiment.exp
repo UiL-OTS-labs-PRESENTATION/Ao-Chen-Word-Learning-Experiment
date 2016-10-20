@@ -81,6 +81,12 @@
 </dat>
 <id>3</id>
 </val>
+<val>
+<dat>
+<val>6</val>
+</dat>
+<id>4</id>
+</val>
 </sd>
 <sid>-1</sid>
 </ss>
@@ -96,6 +102,7 @@
 <pid>1</pid>
 <pid>2</pid>
 <pid>3</pid>
+<pid>4</pid>
 </pl>
 </grp>
 </grps>
@@ -156,6 +163,21 @@
 </set>
 <temp>0</temp>
 <type>int</type>
+<vis>1</vis>
+</set>
+</parm>
+<parm>
+<id>4</id>
+<set>
+<desc>Trial numbers AFTER which a pause will be introduced.</desc>
+<edit>1</edit>
+<name>Trials To Pauze After</name>
+<set>
+<dim>1</dim>
+<rest></rest>
+</set>
+<temp>0</temp>
+<type>int_array</type>
 <vis>1</vis>
 </set>
 </parm>

@@ -291,7 +291,7 @@ begin
 	group_order.shuffle(start_index_test_group, group_order.count());
 
 	loop
-		int index 	= 1;  #you create a new variable called 'i_trial' (1-240)
+		int index 	= 1;
 	until
 	  index > group_order.count()
 	begin 
@@ -305,4 +305,24 @@ begin
 
 		index = index + 1;
 	end;
+end;
+
+#######
+# Generate the trial order (random)
+#######
+sub
+	bool item_in_int_array(int item, array<int>& group[0])
+begin
+	loop
+		int index 	= 1;
+	until
+	  index > group.count()
+	begin 
+		if ( group[index] == item) then
+			return true;
+		end;
+
+		index = index + 1;
+	end;
+	return false;
 end;

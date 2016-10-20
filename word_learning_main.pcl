@@ -104,7 +104,7 @@ begin
 		#Nothing here.
 	end; #end of if-when to play an attention grabber
  
-	if (i_trial == 48 || i_trial == 96 || i_trial == 144 || i_trial == 192) then
+	if (item_in_int_array(i_trial, TRIALS_TO_PAUZE_AFTER)) then
 		if attentiongrabber_index >= MOVIES.count() then 
 			attentiongrabber_index = 1;
 		else 
@@ -116,7 +116,7 @@ begin
 		attentiongrabber_trial.present();
   end;
   
-  if (randomised_order_trial == BLOCKS.count()) then # we are in the final trial
+  if (i_trial == BLOCKS.count()) then # we are in the final trial
 	play_einde.present ();
   end;
 

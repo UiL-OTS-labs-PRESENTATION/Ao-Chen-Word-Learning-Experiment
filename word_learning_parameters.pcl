@@ -9,6 +9,9 @@ array <string> SOUND_FILES[0];
 
 array <int> ONSET_TRIGGERS[0];
 
+array <int> TRIALS_TO_PAUZE_AFTER[0];
+parameter_manager.get_ints("Trials To Pauze After", TRIALS_TO_PAUZE_AFTER);
+
 array <int> IMAGE_TIME_WINDOWS[0][2][2]; # [ [start_time_pic, stop_time_pic] , [start_time_pic, stop_time_pic] ]
 
 array <video> MOVIES[0];
