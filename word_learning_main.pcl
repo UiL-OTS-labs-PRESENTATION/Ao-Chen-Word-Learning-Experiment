@@ -1,4 +1,4 @@
-# Main PCL script
+# Main PCL script that is run directly after the sce
 
 # Load in the relevant pcl files. Note that order matters!
 include_once "word_learning_parameters.pcl";

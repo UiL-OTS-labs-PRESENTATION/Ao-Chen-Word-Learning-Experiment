@@ -1,50 +1,73 @@
 ################# main header info 
-/* 258!
-This experiment results from combining two scripts
-The information relating to reading information from a tab-delimited file (in a pseudo-randomized order) 
-comes from Doug davidson; modified by Petra van Alphen; modified again by Caroline Junge, June 2008 (caroline.junge@mpi.nl);
+/*
+# Ao-Chen-Word-Learning-Experiment
+Presentation® Experiment for recording mismatch negativity ERP's around word learning.
 
-This EEG experiment presents 240 picture-word sequences (10 blocks of 26 such pairs focusing on 2 categories); 
-a training block consists of 2x 6 pictures& correct word (with either the same picture of a category presented six times in a row or 6 different exemplars of a category)
-& a test phase consisting of 12 picture-word pairs (with 6 'match' and 6 'mismatch' with 3 novel exemplars from the 2 trained categories)
-& an eye-tracking phase (where a picture contains 2 objects; 2 such pictures per eye-tracking phase)
+Each trial consists of the following parts, see _input lists_ below.
+* Present `SOUND_FILE` and send `ONSET_TRIGGER`
+* Present `IMAGE_FILE` from `START1_` to `STOP1`, at onset send trigger *53*
+* Present `IMAGE_FILE` from `START2` to `STOP2` , at onset send trigger *54*
 
-There are 3 main trials: 
-1) the playing of a picture-word pair (picture is on the whole trial; word starts at 1000ms; end is 2200ms
-2) the pause (isi) between trials -> 1000ms 
-3) the playing of an attention grabber
- 
-Markers to the EEG computer are sent:
-1) at the beginning of each picture  (marker is always 53)
-2) This is followed 50 ms after onset picture by a marker denoting which fase we're in 
-		(training: 111 (1 exemplar) / 123 (multiple exemplars); test phase 222 (trained on 1 exemplar) or 234 (trained on mulitiple exemplars)
-3) This is 100 ms after onset picture followed by a marker 1-6 (number of training) or 70 (match) or 80 (mismatch) 
+If `IMAGE_FILE` is one of the following no picture will be shown:
+* empty
+* 'EMPTY'
+* 'empty'
+* 'BLANK'
+* 'blank'
 
-4) at the onset of target word (tw) (marker is always 13)
-5) 50 ms after onset tw to indicate which fase we 're in (cf.marker #2): 111/123/222/234
- 6) 100 ms after onset tw to indicate whether it is in the early fase or late fase of the training [1-6]; 
-												or for test phase; whether it is a match or mismatch (70/80); 
-												or for eye-tracking whether the tw matches the left picture [131] or the right one [130]
-7) at the isi trial to indicate in which block we actually are 
-		(marker is 20 + block number -> [21-30])
+During training phase each trial is a group/set of three sub trials. 
+During test phase each trial consists of a group/set of a single sub trial.
+Being a member of a trial group is indicated via the input list.
+
+# Important Keys
+* *Enter or Return* continues the attention grabber and pause
+* *Space (down)* indicates the start of a looking epoch
+* *Space (up)* indicates the end of a looking epoch
+
+# Input Lists
+An input list should be a tab-delimited text file with _no empty line_ at the end of the file. 
+It should have the following columns:
+* `UNIQUE_IDENTITY`: a unique number for each trial
+* `BLOCK`: block number (`1` for training test, `2` for test phase)
+* `GROUP_IDENTITY`: if sub trial belongs to a group/set of trials (used for randomisation)
+* `IMAGE_FILE`
+* `START1`
+* `STOP1`
+* `START2`
+* `STOP2`
+* `SOUND_FILE`
+* `ONSET_TRIGGER`
+
+# Example Input List
+
+| UNIQUE_IDENTITY | BLOCK | GROUP_IDENTITY | IMAGE_FILE  | START1 | STOP1 | START2 | STOP2 | SOUND_FILE | ONSET_TRIGGER |
+|-----------------|-------|----------------|-------------|--------|-------|--------|-------|------------|---------------|
+| 1               | 1     | 1              | BLANK       | 0      | 1000  | 0      | 0     | kitty.wav  | 10            |
+| 2               | 1     | 1              | figure2.png | 0      | 1000  | 0      | 0     | kitty.wav  | 10            |
+| 3               | 1     | 1              | figure3.png | 0      | 600   | 800    | 1000  | kitty.wav  | -1            |
+| 4               | 1     | 2              | BLANK       | 0      | 1000  | 0      | 0     | kitty.wav  | 10            |
+| 5               | 1     | 2              | figure2.png | 0      | 1000  | 0      | 0     | kitty.wav  | 10            |
+| 6               | 1     | 2              | figure3.png | 0      | 600   | 800    | 1000  | kitty.wav  | -1            |
+| 7               | 2     | 3              | figure1.png | 0      | 1000  | 0      | 0     | kitty.wav  | 11            |
+| 8               | 2     | 4              | figure1.png | 0      | 1000  | 0      | 0     | kitty.wav  | 11            |
+| 9               | 2     | 5              | figure1.png | 0      | 1000  | 0      | 0     | kitty.wav  | 11            |
+
+# Randomisation
+Order of groups of sub trials is randomised via a regular shuffle. 
+However, to keep the order of training phase and test phase correct the following is important. 
+The training phase is considered to run to the end of the block 1 trials.
+The test phase is considered to start from the change from block 1 to block 2.
+
+# Import: before experimental usage
+Do not forget to set the `write_codes = false;` to `write_codes = true;` in _word_learning.sce_
 
 
-settings: response -> 1 response buttons
-audio -> hardware DirectX; Primary sound Driver; 16 bit;
-port -> no input port; 1 output port (parallel port; make sure that 'independent lines & delay codes' are selected)
+# Experiment Requestee
+[dr. Ao Chen](http://www.uu.nl/staff/AChen/0)
 
-
-you need a txtfile (for example, excel file saved as tab delimited) in which 
-the first column denotes the name of the jpg file; the second the wavfile;
-third column are eeg markers denoting which phase the word belongs to and whether the type/token ratio in training was 1/1 or 1/6: training (111/123) or test (222/234)
-4th column are eeg markers for position whithin training block or match/mismatch
-5th column is blocknumber
-
-Example:
-cat1.jpg	poes2.wav	111	1	21
-cat1.jpg	poes8.wav	111	2	21	
-make sure that txt file does not end on a blank line, but with last number
-
+# Acknowledgements
+The original script comes from Doug Davidson; modified by Petra van Alphen; modified again by Caroline Junge, June 2008 (caroline.junge@mpi.nl). 
+A heavy rewrite was done by Chris van Run (UiL OTS, Oktober 2016).
 */
 
 ##############################################################################################3 
