@@ -80,7 +80,12 @@ begin
 
 	bit.unload();
 	soundfile.unload(); #unload so that new wav file can be played 
+	
+	if (item_in_int_array(i_trial, TRIALS_TO_PAUZE_AFTER)) then
+		pauze.present(); #"PAUZE!"
+  end;
   
+
   if (i_trial == BLOCKS.count()) then # we are in the final trial
 	play_einde.present ();
   end;
