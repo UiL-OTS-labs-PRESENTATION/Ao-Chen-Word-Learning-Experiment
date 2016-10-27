@@ -30,6 +30,13 @@ generate_trial_order(TRIAL_ORDER);
 term.print("Trial order (by index): " );
 term.print_line(TRIAL_ORDER);
 
+### Starting with an attention grabber####
+int attentiongrabber_index=1; # so you know which attention grabber to play, starting with the first 1
+
+MOVIES[attentiongrabber_index].prepare();
+attention_event.set_stimulus(MOVIES[attentiongrabber_index]);
+attentiongrabber_trial.present(); # we start with an attention grabber
+
 ##############################
 ### MAIN TRIAL DEFINITION####
 ##############################

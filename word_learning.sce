@@ -139,7 +139,8 @@ picture {
 
 ################# DEFINE TRIALS
 trial {
-	trial_type = first_response;
+	trial_type = specific_response;
+	terminator_button = 1;
 	trial_duration = stimuli_length; 
 	picture default;
 	stimulus_event {
