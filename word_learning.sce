@@ -189,19 +189,20 @@ trial {
 
 
 trial {
-	trial_type = first_response;
+	trial_type = specific_response;
+	terminator_button = 1;
 	trial_duration = forever; 
 	stimulus_event {
 		picture pauze_pic;
 		time = 0;
-		target_button = 1; 
 		response_active = true; 
 		port_code = 99;
 	} breaky;
 } pauze;
 	
 trial {
-	trial_type = first_response;
+	trial_type = specific_response;
+	terminator_button = 1;
 	trial_duration = forever;
 	
 	stimulus_event {
@@ -212,7 +213,6 @@ trial {
 	stimulus_event {
 		picture einde;
 		time = 2500;
-		target_button = 1; 
 		response_active = true; 
 		port_code = 99;
 	};
