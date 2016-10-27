@@ -83,7 +83,7 @@
 </val>
 <val>
 <dat>
-<val>6</val>
+<val>3</val>
 </dat>
 <id>4</id>
 </val>
@@ -118,7 +118,7 @@
 <set>
 <rest></rest>
 </set>
-<temp>1</temp>
+<temp>0</temp>
 <type>string</type>
 <vis>1</vis>
 </set>
@@ -328,6 +328,11 @@
 <name>Keyboard</name>
 </device>
 <device>
+<device_type>3</device_type>
+<dx_device_type>0</dx_device_type>
+<name>Standard PS/2 Keyboard</name>
+</device>
+<device>
 <abs_axis>
 <dead_zone>0</dead_zone>
 <max>1000</max>
@@ -368,11 +373,6 @@
 <max_raw_pos>65535</max_raw_pos>
 <min_raw_pos>0</min_raw_pos>
 <name>HID-compliant mouse</name>
-</device>
-<device>
-<device_type>3</device_type>
-<dx_device_type>0</dx_device_type>
-<name>Standard PS/2 Keyboard</name>
 </device>
 <device>
 <abs_axis>
@@ -568,18 +568,6 @@
 <device_type>3</device_type>
 <dx_device_type>19</dx_device_type>
 <ibn>Enter</ibn>
-<idn>Keyboard</idn>
-<index>0</index>
-<label></label>
-<offset>28</offset>
-</idv>
-<sfn>all_scenarios</sfn>
-</sce>
-<sce>
-<idv>
-<device_type>3</device_type>
-<dx_device_type>19</dx_device_type>
-<ibn>Enter</ibn>
 <ibn>Space</ibn>
 <ibn>Space (up)</ibn>
 <idn>Keyboard</idn>
@@ -593,6 +581,9 @@
 <offset>57</offset>
 <offset>2147483705</offset>
 </idv>
+<sfn>all_scenarios</sfn>
+</sce>
+<sce>
 <sfn>C:\Users\VM-Windows\Development\Ao-Chen-Word-Learning-Experiment\word_learning.sce</sfn>
 </sce>
 <sct>
