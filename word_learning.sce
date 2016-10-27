@@ -166,7 +166,6 @@ trial {
 				time = 0;
 				duration = 500;
 				code = "will be given name of image file";
-				port_code = 53;
 		} picevent1;					# The event of presenting picture is called 'picevent'
 		
 		stimulus_event{
@@ -174,7 +173,6 @@ trial {
 				time = 1000;
 				duration = 500;
 				code = "will be given name of image file";
-				port_code = 54;
 		} picevent2;					# The event of presenting picture is called 'picevent'
          
 } main_trial;			
