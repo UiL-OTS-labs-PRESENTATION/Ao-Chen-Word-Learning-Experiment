@@ -175,18 +175,15 @@ end;
 sub
 	set_blank_main_trial
 begin
-	array<double> port_codes[1];
 	picevent1.set_time(0);
 	picevent1.set_duration(0);
-	picevent1.get_port_codes(port_codes);
 	picevent1.set_stimulus(default);
-	picevent1.set_event_code("Empty Picture:" + string(port_codes[1]));
+	picevent1.set_event_code("Empty Picture");
 	
-	picevent2.get_port_codes(port_codes);
 	picevent2.set_time(50);
 	picevent2.set_duration(0);
 	picevent2.set_stimulus(default);
-	picevent2.set_event_code("Empty Picture:" + string(port_codes[1]));
+	picevent2.set_event_code("Empty Picture");
 end;
 
 #######
@@ -204,23 +201,19 @@ begin
 	int duration_2 = time_window[2][2]-time_window[2][1];
 	
 	picevent1.set_stimulus(pic1);
-	array<double> port_codes[1];
-	picevent1.get_port_codes(port_codes);
-	picevent1.set_event_code (IMAGE_FILES[i_trial] + ":" + string(port_codes[1]));
+	picevent1.set_event_code (IMAGE_FILES[i_trial]);
 	picevent1.set_time(time_window[1][1]);
 	picevent1.set_duration(duration_1);
 	
 	if (duration_2 > 0 && time_window[1][2] < time_window[2][1]) then # things are correctly set so set up the second time window
 		picevent2.set_stimulus(pic1);
-		picevent2.get_port_codes(port_codes);
-		picevent2.set_event_code(IMAGE_FILES[i_trial] + ":" + string(port_codes[1]));
+		picevent2.set_event_code(IMAGE_FILES[i_trial]);
 		picevent2.set_time(time_window[2][1]);
 		picevent2.set_duration(duration_2);
 	else # things are NOT correctly set up the second time window
 		picevent2.set_time(time_window[1][1]+50);
 		picevent2.set_stimulus(empty);
-		picevent2.get_port_codes(port_codes);
-		picevent2.set_event_code("Empty Picture" + ":" + string(port_codes[1]));
+		picevent2.set_event_code("Empty Picture");
 		picevent2.set_duration(0);
 		if ( time_window[2][1] != 0 ) then
 			term.print_line("Something went wrong with the time windows on trial " + string(i_trial));

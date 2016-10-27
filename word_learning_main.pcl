@@ -30,14 +30,6 @@ generate_trial_order(TRIAL_ORDER);
 term.print("Trial order (by index): " );
 term.print_line(TRIAL_ORDER);
 
-### Starting with an attention grabber####
-int attentiongrabber_index=1; # so you know which attention grabber to play, starting with the first 1
-
-MOVIES[attentiongrabber_index].prepare();
-attention_event.set_stimulus(MOVIES[attentiongrabber_index]);
-attentiongrabber_trial.present(); # we start with an attention grabber
-
-
 ##############################
 ### MAIN TRIAL DEFINITION####
 ##############################
@@ -88,33 +80,6 @@ begin
 
 	bit.unload();
 	soundfile.unload(); #unload so that new wav file can be played 
-	
-	int type = stimulus_manager.last_stimulus_data().type();
-	if (type == stimulus_hit) then
-		if attentiongrabber_index > 5 then 
-			attentiongrabber_index = 1
-		else 
-			attentiongrabber_index = attentiongrabber_index+1;
-		end;
-		
-		MOVIES[attentiongrabber_index].prepare();
-		attention_event.set_stimulus (MOVIES[attentiongrabber_index]);
-		attentiongrabber_trial.present();
-	elseif (type == stimulus_miss) then #so with no key press it just continues to the next line
-		#Nothing here.
-	end; #end of if-when to play an attention grabber
- 
-	if (item_in_int_array(i_trial, TRIALS_TO_PAUZE_AFTER)) then
-		if attentiongrabber_index >= MOVIES.count() then 
-			attentiongrabber_index = 1;
-		else 
-			attentiongrabber_index = attentiongrabber_index+1;
-		end;
-		pauze.present(); #"PAUZE!"
-		MOVIES[attentiongrabber_index].prepare ();
-		attention_event.set_stimulus (MOVIES[attentiongrabber_index]);
-		attentiongrabber_trial.present();
-  end;
   
   if (i_trial == BLOCKS.count()) then # we are in the final trial
 	play_einde.present ();
