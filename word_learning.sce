@@ -88,7 +88,7 @@ scenario_type = trials;
 #write_codes = true; #		#WRITE CODES TO LOG/EEG PC
 write_codes = false;
 
-pulse_width= 20; 
+pulse_width= 5; 
 
 response_matching = simple_matching;
 
