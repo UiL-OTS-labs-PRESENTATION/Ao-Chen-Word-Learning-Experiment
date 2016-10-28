@@ -155,26 +155,22 @@ trial {
 	
 trial { 
 	all_responses = false;
-		
-		stimulus_event{          # play target word                
-			sound snd;
-			code = "onset audio";
-			time = 0;
-		} wavevent;               # the event of presenting the wav file is called wavevent   
-		
-		stimulus_event{
-			picture pic1;        # Show picture ; pic1 will be overwritten in pcl
-				time = 0;
-				duration = 500;
-				code = "will be given name of image file";
-		} picevent1;					# The event of presenting picture is called 'picevent'
-		
-		stimulus_event{
-			picture pic1;        # Show picture ; pic1 will be overwritten in pcl
-				time = 1000;
-				duration = 500;
-				code = "will be given name of image file";
-		} picevent2;					# The event of presenting picture is called 'picevent'
+	trial_duration = stimuli_length;
+	monitor_sounds = true;
+	
+	stimulus_event{          # play target word                
+		sound snd;
+		code = "onset audio";
+		time = 0;
+	} wavevent;               # the event of presenting the wav file is called wavevent   
+	
+	stimulus_event{
+		nothing {};
+	} picevent1;					# The event of presenting picture is called 'picevent'
+	
+	stimulus_event{
+		nothing {};
+	} picevent2;					# The event of presenting picture is called 'picevent'
          
 } main_trial;			
 					

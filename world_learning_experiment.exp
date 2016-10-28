@@ -77,15 +77,9 @@
 </val>
 <val>
 <dat>
-<val>1000</val>
-</dat>
-<id>3</id>
-</val>
-<val>
-<dat>
 <val>3</val>
 </dat>
-<id>4</id>
+<id>3</id>
 </val>
 </sd>
 <sid>-1</sid>
@@ -102,7 +96,6 @@
 <pid>1</pid>
 <pid>2</pid>
 <pid>3</pid>
-<pid>4</pid>
 </pl>
 </grp>
 </grps>
@@ -141,20 +134,6 @@
 <parm>
 <id>2</id>
 <set>
-<desc>Duration of a trial in seconds. Note that this is a 'window' in the experiment paradigm.</desc>
-<edit>1</edit>
-<name>Trial Duration</name>
-<set>
-<rest></rest>
-</set>
-<temp>0</temp>
-<type>int</type>
-<vis>1</vis>
-</set>
-</parm>
-<parm>
-<id>3</id>
-<set>
 <desc>Kind of link an inter-stimuli interval but between groups of trials.</desc>
 <edit>1</edit>
 <name>Inter-Group Interval Duration</name>
@@ -167,7 +146,7 @@
 </set>
 </parm>
 <parm>
-<id>4</id>
+<id>3</id>
 <set>
 <desc>Trial numbers AFTER which a pause will be introduced.</desc>
 <edit>1</edit>
@@ -340,11 +319,6 @@
 <name>Keyboard</name>
 </device>
 <device>
-<device_type>3</device_type>
-<dx_device_type>0</dx_device_type>
-<name>Standard PS/2 Keyboard</name>
-</device>
-<device>
 <abs_axis>
 <dead_zone>0</dead_zone>
 <max>1000</max>
@@ -385,6 +359,11 @@
 <max_raw_pos>65535</max_raw_pos>
 <min_raw_pos>0</min_raw_pos>
 <name>HID-compliant mouse</name>
+</device>
+<device>
+<device_type>3</device_type>
+<dx_device_type>0</dx_device_type>
+<name>Standard PS/2 Keyboard</name>
 </device>
 <device>
 <abs_axis>

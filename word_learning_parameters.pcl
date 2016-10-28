@@ -18,7 +18,6 @@ array <video> MOVIES[0];
 array <string> MOVIE_LIST_FILENAMES[0];
 parameter_manager.get_strings("Video Files", MOVIE_LIST_FILENAMES);
 
-int TRIAL_DURATION = parameter_manager.get_int("Trial Duration");
 int IGI_DURATION = parameter_manager.get_int("Inter-Group Interval Duration");
 
 string TRIAL_LIST_FILENAME = parameter_manager.get_string("Trial List");

@@ -20,7 +20,6 @@ end;
 output_port oport = output_port_manager.get_port (1);
 
 ## set some SDL-based defaults
-main_trial.set_duration(TRIAL_DURATION);
 inter_group_interval.set_duration(IGI_DURATION);
 
 ## GENERATE ORDER OF TRIALS
