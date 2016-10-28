@@ -196,21 +196,3 @@ trial {
 		port_code = 99;
 	} breaky;
 } pauze;
-	
-trial {
-	trial_type = specific_response;
-	terminator_button = 1;
-	trial_duration = forever;
-	
-	stimulus_event {
-		picture default;
-		time = 0;
-	};
-	
-	stimulus_event {
-		picture einde;
-		time = 2500;
-		response_active = true; 
-		port_code = 99;
-	};
-}play_einde;
