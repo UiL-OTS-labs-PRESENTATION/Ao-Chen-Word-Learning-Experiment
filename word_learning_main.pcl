@@ -76,7 +76,7 @@ begin
 	
 	## SETUP PICTURES
 	if ( blank_image_trial(randomised_order_trial) ) then
-		set_blank_main_trial()
+		set_blank_main_trial(randomised_order_trial)
 	else
 		set_main_trial_with_optional_blink(randomised_order_trial)
 	end;
