@@ -77,7 +77,7 @@
 </val>
 <val>
 <dat>
-<val>3</val>
+<val>-1</val>
 </dat>
 <id>3</id>
 </val>
@@ -148,7 +148,7 @@
 <parm>
 <id>3</id>
 <set>
-<desc>Trial numbers AFTER which a pause will be introduced.</desc>
+<desc>Trial numbers AFTER which a pause will be introduced. Empty or a negative number will ensure there to never be a pauze.</desc>
 <edit>1</edit>
 <name>Trials To Pauze After</name>
 <set>
