@@ -85,8 +85,8 @@ pcl_file = "word_learning_main.pcl";
 
 scenario_type = trials;
 
-#write_codes = true; #		#WRITE CODES TO LOG/EEG PC
-write_codes = false;
+write_codes = true; #		#WRITE CODES TO LOG/EEG PC
+#write_codes = false;
 
 pulse_width= 5; 
 
@@ -154,7 +154,6 @@ trial {
 } attentiongrabber_trial;
 	
 trial { 
-	all_responses = false;
 	trial_duration = stimuli_length;
 	monitor_sounds = true;
 	
@@ -175,7 +174,6 @@ trial {
 } main_trial;			
 					
 trial {
-	all_responses = false;
 	stimulus_event {
 		picture default;  #as defined in sdl
 		time = 0;
