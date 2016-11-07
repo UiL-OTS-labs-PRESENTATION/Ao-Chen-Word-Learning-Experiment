@@ -177,8 +177,7 @@ trial {
 	stimulus_event {
 		picture default;  #as defined in sdl
 		time = 0;
-		code = "inter_group_interval:98"; 
-		port_code = 98;
+		code = "inter_group_interval"; 
 	} background;
 } inter_group_interval;
 

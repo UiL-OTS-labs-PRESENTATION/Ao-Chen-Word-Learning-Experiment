@@ -49,8 +49,7 @@ begin
 	int randomised_order_trial = TRIAL_ORDER[i_trial];
 	
 	## BACKGROUND IGI
-	background.set_event_code ( "inter_group_interval:" + string(BLOCKS[randomised_order_trial]));
-	background.set_port_code (BLOCKS[randomised_order_trial]);
+	background.set_event_code ( "inter_group_interval");
 	
 	## only imply the group interval if we are between groups!
 	if (last_group != GROUP_IDENTITIES[randomised_order_trial] ) then
