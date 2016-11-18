@@ -22,6 +22,10 @@ int IGI_DURATION = parameter_manager.get_int("Inter-Group Interval Duration");
 
 string TRIAL_LIST_FILENAME = parameter_manager.get_string("Trial List");
 
+bool TRAINING_PHASE_RANDOMISATION = parameter_manager.get_bool("Training Phase Randomisation");
+bool TEST_PHASE_RANDOMISATION = parameter_manager.get_bool("Test Phase Randomisation");
+
+
 string SOUND_DIR = "sounds/";
 string IMAGE_DIR = "images/";
 string MOVIE_DIR = "movies/";

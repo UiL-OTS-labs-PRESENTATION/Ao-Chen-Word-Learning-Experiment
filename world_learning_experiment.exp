@@ -81,6 +81,18 @@
 </dat>
 <id>3</id>
 </val>
+<val>
+<dat>
+<val>1</val>
+</dat>
+<id>4</id>
+</val>
+<val>
+<dat>
+<val>1</val>
+</dat>
+<id>5</id>
+</val>
 </sd>
 <sid>-1</sid>
 </ss>
@@ -96,6 +108,8 @@
 <pid>1</pid>
 <pid>2</pid>
 <pid>3</pid>
+<pid>5</pid>
+<pid>4</pid>
 </pl>
 </grp>
 </grps>
@@ -157,6 +171,34 @@
 </set>
 <temp>0</temp>
 <type>int_array</type>
+<vis>1</vis>
+</set>
+</parm>
+<parm>
+<id>4</id>
+<set>
+<desc>Controls whether the test phase items will be randomised.</desc>
+<edit>1</edit>
+<name>Test Phase Randomisation</name>
+<set>
+<rest></rest>
+</set>
+<temp>0</temp>
+<type>bool</type>
+<vis>1</vis>
+</set>
+</parm>
+<parm>
+<id>5</id>
+<set>
+<desc>Controls whether the training phase items will be randomised.</desc>
+<edit>1</edit>
+<name>Training Phase Randomisation</name>
+<set>
+<rest></rest>
+</set>
+<temp>0</temp>
+<type>bool</type>
 <vis>1</vis>
 </set>
 </parm>

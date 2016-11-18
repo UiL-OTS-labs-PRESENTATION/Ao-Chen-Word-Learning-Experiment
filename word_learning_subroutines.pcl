@@ -298,12 +298,17 @@ begin
 	# Fill up the training phase
 	group_order.fill(1, start_index_test_group-1, 1, 3);
 	int first_index_of_test_phase = group_order[start_index_test_group-1] + 3;
-	group_order.shuffle(1, start_index_test_group-1);
+	if (TRAINING_PHASE_RANDOMISATION) then
+		group_order.shuffle(1, start_index_test_group-1);
+	end;
+	
 
 	# Fill up the test phase
 	group_order.fill(start_index_test_group, group_order.count(), first_index_of_test_phase , 1);
-	group_order.shuffle(start_index_test_group, group_order.count());
-
+	if (TEST_PHASE_RANDOMISATION) then
+		group_order.shuffle(start_index_test_group, group_order.count());
+	end;
+	
 	loop
 		int index 	= 1;
 	until
